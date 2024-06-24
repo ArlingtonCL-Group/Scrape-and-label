@@ -10,6 +10,7 @@ interface IUser {
     createdAt: Date;
     youtubeCookie: string;
     totalStatusChanges: number;
+    avatar: string;
 }
 
 interface IUserDocument extends IUser, Document {
@@ -39,6 +40,7 @@ const userSchema = new mongoose.Schema<IUserDocument>({
         type: Number,
         default: 0
     },
+    avatar: String,
 });
 
 userSchema.methods.validatePassword = function(password: string) {
