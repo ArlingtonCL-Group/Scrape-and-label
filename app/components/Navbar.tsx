@@ -34,6 +34,7 @@ const Navbar = () => {
           <Link href="/">
             <span className="text-2xl font-bold cursor-pointer hover:text-blue-200 transition duration-300">AniVoice</span>
           </Link>
+          
           <div className="flex space-x-8">
             <div className="dropdown dropdown-hover">
               <div tabIndex={0} role="button" className="btn m-1 bg-blue-700 hover:bg-blue-600 text-white border-none rounded-full px-4 py-2 transition duration-300">Leaderboard</div>
@@ -69,9 +70,13 @@ const Navbar = () => {
               </div>
             ) : null}
           </div>
-          <div>
-            <LoginButton session={session} loading={loading} />
-          </div>
+          <div className="flex items-center">
+            <div className="flex items-center mr-4">
+              <span className="text-sm font-light mr-2">Welcome, {session.user?.name || ""}</span>
+              <span className="text-xs text-blue-300">({session.user?.role})</span>
+            </div>
+          <LoginButton session={session} loading={loading} />
+        </div>
         </div>
       )}
     </div>
