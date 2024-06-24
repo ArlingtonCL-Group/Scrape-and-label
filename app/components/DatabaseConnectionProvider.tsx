@@ -1,5 +1,6 @@
 'use client'
 import {useState, useEffect, ReactNode} from 'react';
+import { toast } from 'react-toastify';
 
 interface DatabaseConnectionProviderProps {
     children : ReactNode;
@@ -15,8 +16,11 @@ export default function DatabaseConnectionProvider({children} : DatabaseConnecti
                 const response = await fetch('/api/connect');
                 if (response.ok) {
                     setDbConnected(true);
+                    toast.success('Sucessfully connected to the database');
                 } else {
                     throw new Error('Failed to connect to the database');
+                    toast.error('Failed to connect to the database');
+                    
                 }
             } catch (error) {
                 console.error(error);

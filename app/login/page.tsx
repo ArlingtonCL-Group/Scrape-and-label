@@ -2,6 +2,8 @@
 import {ChangeEvent, FormEvent, useState, useEffect} from "react";
 import {useRouter} from 'next/navigation';
 import {useSession, signIn, signOut} from "next-auth/react";
+import { toast } from 'react-toastify';
+
 type LoginInput = {
     username: string;
     password: string;
@@ -41,12 +43,14 @@ export default function Page({searchParams} : PageProps) {
     const handleSubmit = async(event : FormEvent) => {
         event.preventDefault();
         setIsLoading(true); // Set isLoading to true when the request starts
+        toast.success('Request started');
         await signIn("credentials", {
             username: inputs.username,
             password: inputs.password,
             redirect:true,
             callbackUrl: '/'
         });
+        toast.success('Request ended');
         setIsLoading(false); // Set isLoading to false when the request ends
     }
 

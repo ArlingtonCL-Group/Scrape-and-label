@@ -2,6 +2,7 @@
 import {useEffect, useState} from 'react';
 import api from '../api/api';
 import {useSession, signIn, signOut} from "next-auth/react";
+import { toast } from 'react-toastify';
 
 type User = {
     username: string;
@@ -20,8 +21,10 @@ export default function Page() {
             }
         });
         if (response.status !== 200) {
+            toast.error('HTTP error! status: ${response.status}');
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+        toast.success(response.data.message);
         console.log(response.data.message)
         const staticData = response.data;
         setUsers(staticData.message);

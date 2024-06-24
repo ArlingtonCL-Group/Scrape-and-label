@@ -299,6 +299,7 @@ useEffect(() => {
             }
         } catch (error) {
             console.error('Failed to start scraping', error);
+            toast.error('Failed to start scraping');
         } finally {
             setIsLoading(false);
         }

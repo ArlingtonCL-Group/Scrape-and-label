@@ -4,6 +4,7 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import api from './api/api';
 import {useSession, signIn, signOut} from "next-auth/react";
+import { toast } from 'react-toastify';
 
 
 // authentication
@@ -52,17 +53,20 @@ export default function Page() {
 
             if (response.status !== 200) {
                 throw new Error(`HTTP error! status: ${response.status}`);
+                toast.error(`HTTP error! status: ${response.status}`);
             }
             const staticData = response.data;
             setyoutubeJsonData(staticData.message);
             youtubeJsonDataRef.current = staticData.message;
         } catch (error) {
             console.error('An error occurred while fetching the YouTube data:', error);
+            toast.error('An error occurred while fetching the YouTube data:');
         }
     };
     const handleUpdate = async(jsondata : any, category : any) => {
         if (!(youtubeJsonDataRef.current.length > 0)) {
             console.log("returned in handleupdate")
+            toast.success("returned in handleupdate")
             return;
         }
         try {
@@ -80,6 +84,7 @@ export default function Page() {
             youtubeJsonDataRef.current = newyoutubedata;
         } catch (error) {
             console.error(`An error occurred: ${error}`);
+            toast.error(`An error occurred: ${error}`);
         }
     };
 
@@ -99,8 +104,10 @@ export default function Page() {
 
     async function handleKeyDown(e : any) {
         console.log("handleKeyDown triggered")
+        
         if (!(youtubeJsonDataRef.current.length > 0)) {
             console.log("returned")
+            toast.success("handleKeyDown triggered");
             return;
         }
         console.log("handleKeyDown triggered went through")
